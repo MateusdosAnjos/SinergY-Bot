@@ -2,40 +2,31 @@ class OnboardingTutorial:
     """Constructs the onboarding message and stores the state of which tasks were completed."""
 
     WELCOME_BLOCK = {
-			"type": "section",
+		
+            "type": "section",
 			"text": {
 				"type": "mrkdwn",
 				"text": "Bora dar uma energizada?"
 			}
-		},
-		{
-			"type": "divider"
-		},
-		{
+    }
+    DIVIDER_BLOCK = {
 			"type": "actions",
 			"elements": [
 				{
 					"type": "button",
 					"text": {
 						"type": "plain_text",
-						"text": "Bora!",
-						"emoji": true
+						"text": "Click Me",
+						"emoji": True
 					},
-					"value": "click_me_123"
-				},
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": "Nope",
-						"emoji": true
-					},
-					"value": "click_me_123"
+					"value": "test_click",
+                    "action_id": "test_click"
 				}
 			]
 		}
-    }
-    DIVIDER_BLOCK = {"type": "divider"}
+
+    def test_click():
+        return get_message_payload(self)
 
     def __init__(self, channel):
         self.channel = channel

@@ -4,6 +4,7 @@ from flask import Flask
 from slack import WebClient
 from slackeventsapi import SlackEventAdapter
 from onboarding_tutorial import OnboardingTutorial
+from help_info import HelpInfo
 
 # Initialize a Flask app to host the events adapter
 app = Flask(__name__)
@@ -15,6 +16,7 @@ slack_web_client = WebClient(token=os.environ['SLACK_BOT_TOKEN'])
 # For simplicity we'll store our app data in-memory with the following data structure.
 # onboarding_tutorials_sent = {"channel": {"user_id": OnboardingTutorial}}
 onboarding_tutorials_sent = {}
+help_info_sent = {}
 
 
 def start_onboarding(user_id: str, channel: str):
@@ -37,6 +39,25 @@ def start_onboarding(user_id: str, channel: str):
         onboarding_tutorials_sent[channel] = {}
     onboarding_tutorials_sent[channel][user_id] = onboarding_tutorial
 
+def show_help_info(user_id: str, channel: str):
+    # Create a new info helper.
+    help_info = HelpInfo(channel)
+
+    # Get the onboarding message payload
+    message = help_info.get_message_payload()
+
+    # Post the onboarding message in Slack
+    response = slack_web_client.chat_postMessage(**message)
+
+    # Capture the timestamp of the message we've just posted so
+    # we can use it to update the message after a user
+    # has completed an onboarding task.
+    help_info.timestamp = response["ts"]
+
+    # Store the message sent in help_info_sent
+    if channel not in help_info_sent:
+        help_info_sent[channel] = {}
+    help_info_sent[channel][user_id] = help_info
 
 # ================ Team Join Event =============== #
 # When the user first joins a team, the type of the event will be 'team_join'.
@@ -135,10 +156,17 @@ def message(payload):
     user_id = event.get("user")
     text = event.get("text")
 
+    print("MATEUS, OLHA O EVENT AQUI! ", event)
 
-    if text and text.lower() == "start":
+    if text == None:
+        return 
+    
+    if text.lower() == "start":
         return start_onboarding(user_id, channel_id)
-
+    
+    elif text.lower() == "info" or text.lower() == "help":
+        return show_help_info(user_id, channel_id)
+    
 
 if __name__ == "__main__":
     logger = logging.getLogger()
