@@ -2,7 +2,7 @@ class OnboardingTutorial:
     """Constructs the onboarding message and stores the state of which tasks were completed."""
 
     WELCOME_BLOCK = {
-        "type": "section",
+			"type": "section",
 			"text": {
 				"type": "mrkdwn",
 				"text": "Bora dar uma energizada?"
@@ -33,7 +33,7 @@ class OnboardingTutorial:
 					"value": "click_me_123"
 				}
 			]
-        }
+		}
     }
     DIVIDER_BLOCK = {"type": "divider"}
 
