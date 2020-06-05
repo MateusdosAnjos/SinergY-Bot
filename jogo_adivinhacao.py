@@ -1,7 +1,7 @@
-import base_jogo_advinhacao as jgAdvinhacao 
+import base_jogo_adivinhacao as jgAdivinhacao 
 
 class JogoAdivinhacao:
-    advinhacao = {
+    adivinhacao = {
         "pergunta" : "",
         "resposta" : "",
         "dica" : ""
@@ -16,28 +16,26 @@ class JogoAdivinhacao:
 			}
     }
     DIVIDER_BLOCK = {"type": "divider"}
-    QUESTION_BLOCK 
 
 
     def __init__(self, channel):       
 
-        advinhacao = jgAdvinhacao.comeca_jogo()
+        adivinhacao = jgAdivinhacao.comeca_jogo()
 
         QUESTION_BLOCK = {
             "type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": f"{advinhacao["pergunta"]} "
+				# "text": f"{adivinhacao["pergunta"]}"
+                "text": "teste de texto",
 			}
         }
         self.channel = channel
-        self.username = "pythonboardingbot"
+        self.username = "Synergy-Bot"
         self.icon_emoji = ":robot_face:"
         self.timestamp = ""
         self.reaction_task_completed = False
         self.pin_task_completed = False
-
-    }
 
     def get_message_payload(self):
         return {

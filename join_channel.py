@@ -11,8 +11,7 @@ class JoinChannel:
 
     def __init__(self, channel):
         self.channel = channel
-        self.username = "pythonboardingbot"
-        self.icon_emoji = ":robot_face:"
+        self.username = "Synergy-Bot"
         self.timestamp = ""
 
     def get_message_payload(self):
@@ -20,7 +19,6 @@ class JoinChannel:
             "ts": self.timestamp,
             "channel": self.channel,
             "username": self.username,
-            "icon_emoji": self.icon_emoji,
             "blocks": [
                 self.TITLE_MESSAGE,
             ],

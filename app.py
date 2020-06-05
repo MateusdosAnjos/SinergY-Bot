@@ -6,6 +6,7 @@ from slackeventsapi import SlackEventAdapter
 from onboarding_tutorial import OnboardingTutorial
 from help_info import HelpInfo
 from join_channel import JoinChannel
+from jogo_adivinhacao import JogoAdivinhacao
 
 # Initialize a Flask app to host the events adapter
 app = Flask(__name__)
@@ -19,6 +20,7 @@ slack_web_client = WebClient(token=os.environ['SLACK_BOT_TOKEN'])
 onboarding_tutorials_sent = {}
 help_info_sent = {}
 join_channel_sent = {}
+jogo_adivinhacao_sent = {}
 
 
 def start_onboarding(user_id: str, channel: str):
@@ -80,6 +82,26 @@ def join_channel(user_id: str, channel: str):
     if channel not in join_channel_sent:
         join_channel_sent[channel] = {}
     join_channel_sent[channel][user_id] = join_channel
+
+def riddle_game(user_id: str, channel: str):
+    # Create a new join channel.
+    jogo_adivinhacao = JoinChannel(channel)
+
+    # Get the onboarding message payload
+    message = jogo_adivinhacao.get_message_payload()
+
+    # Post the onboarding message in Slack
+    response = slack_web_client.chat_postMessage(**message)
+
+    # Capture the timestamp of the message we've just posted so
+    # we can use it to update the message after a user
+    # has completed an onboarding task.
+    jogo_adivinhacao.timestamp = response["ts"]
+
+    # Store the message sent in join_channel_sent
+    if channel not in jogo_adivinhacao_sent:
+        jogo_adivinhacao_sent[channel] = {}
+    jogo_adivinhacao_sent[channel][user_id] = jogo_adivinhacao
 
 # ================ Team Join Event =============== #
 # When the user first joins a team, the type of the event will be 'team_join'.
@@ -190,8 +212,10 @@ def message(payload):
         return show_help_info(user_id, channel_id)
 
     elif text.lower() == "join":
-        conversations.JoinChannel("xoxb-357521768401-1165763545701-5gQECKmeqy3Mu4adF6Kpyu1P", "C014NFTUWLW")
         return join_channel(user_id, channel_id)
+        
+    elif text.lower() == "jogo_charada":
+        return riddle_game(user_id, channel_id)
 
 @slack_events_adapter.on("reaction_added")
 def reaction_added(event_data):

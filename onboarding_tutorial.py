@@ -14,8 +14,7 @@ class OnboardingTutorial:
 
     def __init__(self, channel):
         self.channel = channel
-        self.username = "pythonboardingbot"
-        self.icon_emoji = ":robot_face:"
+        self.username = "Synergy-Bot"
         self.timestamp = ""
         self.reaction_task_completed = False
         self.pin_task_completed = False
@@ -25,7 +24,6 @@ class OnboardingTutorial:
             "ts": self.timestamp,
             "channel": self.channel,
             "username": self.username,
-            "icon_emoji": self.icon_emoji,
             "blocks": [
                 self.WELCOME_BLOCK,
                 self.DIVIDER_BLOCK,

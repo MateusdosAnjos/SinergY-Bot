@@ -33,11 +33,18 @@ class HelpInfo:
 				"emoji": True
 			}
 		}
+    OPTION_4 = {
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": "Digite 'jogo_adivinhacao' para jogar o jogo",
+				"emoji": True
+			}
+		}
 
     def __init__(self, channel):
         self.channel = channel
-        self.username = "pythonboardingbot"
-        self.icon_emoji = ":robot_face:"
+        self.username = "Synergy-Bot"
         self.timestamp = ""
 
     def get_message_payload(self):
@@ -45,11 +52,11 @@ class HelpInfo:
             "ts": self.timestamp,
             "channel": self.channel,
             "username": self.username,
-            "icon_emoji": self.icon_emoji,
             "blocks": [
                 self.TITLE_MESSAGE,
                 self.OPTION_1,
                 self.OPTION_2,
                 self.OPTION_3,
+                self.OPTION_4,
             ],
         }

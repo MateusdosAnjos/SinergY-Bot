@@ -1,11 +1,5 @@
-
-pergunta : string
-resposta : string
-dica : string
-
-
 perguntas = [
-  "Qual super-heroi é conhecido como 'o cavaleiro das trevas'?,
+  "Qual super-heroi é conhecido como 'o cavaleiro das trevas'?",
   "Qual o maior deserto da Terra?",
   "Em que ano foi escrita a atual Constituição Brasileira?"
 ]
@@ -23,7 +17,7 @@ dicas = [
 ]
 
 def comeca_jogo():
-    int num = randint(1,len(perguntas))
+    num = randint(1,len(perguntas))
     pergunta = select_adinhacao()
     resposta = get_resposta()
     dica = get_dica
@@ -34,7 +28,7 @@ def comeca_jogo():
         "dica" : dica
     }
 
-def select_adinhacao(num : int) -> String:
+def select_adinhacao(num : int):
     return pergunta[num]
 
 def get_dica(id : int):
