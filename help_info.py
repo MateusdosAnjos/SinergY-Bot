@@ -25,6 +25,14 @@ class HelpInfo:
 				"emoji": True
 			}
 		}
+    OPTION_3 = {
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": "Digite 'join' para escolher qual canal devo me conectar",
+				"emoji": True
+			}
+		}
 
     def __init__(self, channel):
         self.channel = channel
@@ -42,5 +50,6 @@ class HelpInfo:
                 self.TITLE_MESSAGE,
                 self.OPTION_1,
                 self.OPTION_2,
+                self.OPTION_3,
             ],
         }
