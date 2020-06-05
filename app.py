@@ -172,10 +172,6 @@ def reaction_added(event_data):
   emoji = event_data["event"]["reaction"]
   print(emoji)
 
-@slack_events_adapter.on("block_actions")
-def block_actions(payload):
-    print("MATEUS, VEM MONSTRO")
-
 if __name__ == "__main__":
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
