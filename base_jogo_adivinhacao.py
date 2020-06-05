@@ -1,3 +1,5 @@
+import random 
+
 perguntas = [
   "Qual super-heroi é conhecido como 'o cavaleiro das trevas'?",
   "Qual o maior deserto da Terra?",
@@ -17,10 +19,10 @@ dicas = [
 ]
 
 def comeca_jogo():
-    num = randint(1,len(perguntas))
-    pergunta = select_adinhacao()
-    resposta = get_resposta()
-    dica = get_dica
+    num = random.randint(0, len(perguntas)-1)
+    pergunta = select_adivinhacao(num)
+    resposta = get_resposta(num)
+    dica = get_dica(num)
 
     return {
         "pergunta" : pergunta,
@@ -28,8 +30,8 @@ def comeca_jogo():
         "dica" : dica
     }
 
-def select_adinhacao(num : int):
-    return pergunta[num]
+def select_adivinhacao(num : int):
+    return perguntas[num]
 
 def get_dica(id : int):
     return dicas[id]

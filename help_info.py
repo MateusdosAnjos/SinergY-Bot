@@ -37,7 +37,7 @@ class HelpInfo:
 			"type": "section",
 			"text": {
 				"type": "plain_text",
-				"text": "Digite 'jogo_adivinhacao' para jogar o jogo",
+				"text": "Digite 'jogo_charada' para jogar o jogo",
 				"emoji": True
 			}
 		}

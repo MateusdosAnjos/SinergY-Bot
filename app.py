@@ -85,7 +85,7 @@ def join_channel(user_id: str, channel: str):
 
 def riddle_game(user_id: str, channel: str):
     # Create a new join channel.
-    jogo_adivinhacao = JoinChannel(channel)
+    jogo_adivinhacao = JogoAdivinhacao(channel)
 
     # Get the onboarding message payload
     message = jogo_adivinhacao.get_message_payload()
@@ -199,8 +199,6 @@ def message(payload):
     channel_id = event.get("channel")
     user_id = event.get("user")
     text = event.get("text")
-
-    print("MATEUS, OLHA O EVENT AQUI! ", event)
 
     if text == None:
         return 
