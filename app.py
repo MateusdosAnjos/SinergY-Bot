@@ -83,12 +83,35 @@ def join_channel(user_id: str, channel: str):
         join_channel_sent[channel] = {}
     join_channel_sent[channel][user_id] = join_channel
 
+jogo_adivinhacao = ""
 def riddle_game(user_id: str, channel: str):
     # Create a new join channel.
     jogo_adivinhacao = JogoAdivinhacao(channel)
 
     # Get the onboarding message payload
     message = jogo_adivinhacao.get_message_payload()
+
+    # Post the onboarding message in Slack
+    response = slack_web_client.chat_postMessage(**message)
+
+    # Capture the timestamp of the message we've just posted so
+    # we can use it to update the message after a user
+    # has completed an onboarding task.
+    jogo_adivinhacao.timestamp = response["ts"]
+
+    # Store the message sent in join_channel_sent
+    if channel not in jogo_adivinhacao_sent:
+        jogo_adivinhacao_sent[channel] = {}
+    jogo_adivinhacao_sent[channel][user_id] = jogo_adivinhacao
+
+def ingame_riddle(user_id: str, channel: str, text: str):
+    # Get the onboarding message payload
+    message = jogo_adivinhacao.get_message_ingame()
+
+    if jogo_adivinhacao.get_is_correct()
+        ingame = False
+    else 
+        ingame = True
 
     # Post the onboarding message in Slack
     response = slack_web_client.chat_postMessage(**message)
@@ -185,7 +208,7 @@ def update_pin(payload):
     # Update the timestamp saved on the onboarding tutorial object
     onboarding_tutorial.timestamp = updated_message["ts"]
 
-
+ingame = False
 # ============== Message Events ============= #
 # When a user sends a DM, the event type will be 'message'.
 # Here we'll link the message callback to the 'message' event.
@@ -200,6 +223,10 @@ def message(payload):
     user_id = event.get("user")
     text = event.get("text")
 
+    if ingame:
+        ingame_riddle(text)
+        return 
+
     if text == None:
         return 
     
@@ -213,6 +240,7 @@ def message(payload):
         return join_channel(user_id, channel_id)
         
     elif text.lower() == "jogo_charada":
+        ingame = True
         return riddle_game(user_id, channel_id)
 
 @slack_events_adapter.on("reaction_added")

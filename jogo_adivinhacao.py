@@ -52,3 +52,50 @@ class JogoAdivinhacao:
                 self.QUESTION_BLOCK
             ],
         }
+    
+    CORRECT_BLOCK = {
+		
+            "type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "ACERTOU, PARABENS :grinning: :"
+			}
+    }
+    
+    WRONG_BLOCK = {
+		
+            "type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "ERROOOO"
+			}
+    }
+
+    def get_message_ingame(text):
+        if text == adivinhacao["resposta"]:
+            return {
+            "ts": self.timestamp,
+            "channel": self.channel,
+            "username": self.username,
+            "icon_emoji": self.icon_emoji,
+            "blocks": [
+                self.CORRECT_BLOCK
+            ],
+        }
+        else
+            return {
+            "ts": self.timestamp,
+            "channel": self.channel,
+            "username": self.username,
+            "icon_emoji": self.icon_emoji,
+            "blocks": [
+                self.WRONG_BLOCK
+            ],
+        }
+
+    def get_is_correct(text):
+        if text == adivinhacao["resposta"]:
+            return True
+        else
+            return False
+        
