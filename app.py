@@ -166,7 +166,15 @@ def message(payload):
     
     elif text.lower() == "info" or text.lower() == "help":
         return show_help_info(user_id, channel_id)
-    
+
+@slack_events_adapter.on("reaction_added")
+def reaction_added(event_data):
+  emoji = event_data["event"]["reaction"]
+  print(emoji)
+
+@slack_events_adapter.on("block_actions")
+def block_actions(payload):
+    print("MATEUS, VEM MONSTRO")
 
 if __name__ == "__main__":
     logger = logging.getLogger()

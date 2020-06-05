@@ -9,24 +9,8 @@ class OnboardingTutorial:
 				"text": "Bora dar uma energizada?"
 			}
     }
-    DIVIDER_BLOCK = {
-			"type": "actions",
-			"elements": [
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": "Click Me",
-						"emoji": True
-					},
-					"value": "test_click",
-                    "action_id": "test_click"
-				}
-			]
-		}
+    DIVIDER_BLOCK = {"type": "divider"}
 
-    def test_click():
-        return get_message_payload(self)
 
     def __init__(self, channel):
         self.channel = channel
