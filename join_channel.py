@@ -16,7 +16,6 @@ class JoinChannel:
         self.timestamp = ""
 
     def get_message_payload(self):
-        conversations.JoinChannel("xoxb-357521768401-1165763545701-5gQECKmeqy3Mu4adF6Kpyu1P", "C014NFTUWLW")
         return {
             "ts": self.timestamp,
             "channel": self.channel,
