@@ -3,13 +3,37 @@ class OnboardingTutorial:
 
     WELCOME_BLOCK = {
         "type": "section",
-        "text": {
-            "type": "mrkdwn",
-            "text": (
-                "Welcome to Slack! :wave: We're so glad you're here. :blush:\n\n"
-                "*Get started by completing the steps below:*"
-            ),
-        },
+			"text": {
+				"type": "mrkdwn",
+				"text": "Bora dar uma energizada?"
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Bora!",
+						"emoji": true
+					},
+					"value": "click_me_123"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Nope",
+						"emoji": true
+					},
+					"value": "click_me_123"
+				}
+			]
+        }
     }
     DIVIDER_BLOCK = {"type": "divider"}
 
