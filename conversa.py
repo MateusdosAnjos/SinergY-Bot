@@ -9,6 +9,11 @@ class Conversa:
     "Três momentos marcantes da sua vida",
     "O que você faz quando está tendo um dia ruim?",
     "Quem é uma inspiração para você?",
+    "Quais foram as melhores férias que já teve?",
+    "Qual é o seu prato preferido? Feito por quem?",
+    "Qual é o sonho mais aterrador que já teve?",
+    "Conte-me uma coisa de que se orgulhe sobre si",
+    "Se pudesse ser um animal, qual seria?",
     ]
 
     TITLE_MESSAGE = {
