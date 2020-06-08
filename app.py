@@ -131,7 +131,11 @@ def riddle_game(user_id: str, channel: str):
 
 def ingame_riddle(user_id: str, channel: str, text: str):
     # Get the onboarding message payload
-    message = jogo_adivinhacao.get_message_ingame(text)
+
+    # response = slack_web_client.users_info(user=user_id)
+    # user_name = response["user"]["real_name"]    
+
+    message = jogo_adivinhacao.get_message_ingame(text, user_id)
 
     global ingame
     global dica_time
@@ -256,6 +260,10 @@ def message(payload):
     global ingame
     global dica_time
 
+    if text.lower() == "end_game":
+        ingame = False
+        return
+        
     if ingame and not dica_time and text != "This content can't be displayed.":
         ingame_riddle(user_id, channel_id, text)
         return
@@ -280,6 +288,7 @@ def message(payload):
     
     elif text.lower() == "conversa":
         return show_conversa(user_id, channel_id)
+
 
 @slack_events_adapter.on("reaction_added")
 def reaction_added(event_data):

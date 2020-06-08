@@ -52,32 +52,35 @@ class JogoAdivinhacao:
             ],
         }
     
-    CORRECT_BLOCK = {
-		
-            "type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "ACERTOU, PARABENS :grinning:"
-			}
-    }
     
-    WRONG_BLOCK = {
-		
-            "type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "Errado! :no_mouth:"
-			}
-    }
+    def get_message_ingame(self, text, user_id):
+        CORRECT_BLOCK = {	
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "<@<user_id>> ACERTOU, PARABÉNS :grinning:"
+                }
+        }
+        
+        WRONG_BLOCK = {
+            
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "<@<user_id>> Errado! :no_mouth:"
+                }
+        }
 
-    def get_message_ingame(self, text):
+        CORRECT_BLOCK["text"]["text"] = CORRECT_BLOCK["text"]["text"].replace("<user_id>", user_id)
+        WRONG_BLOCK["text"]["text"] = WRONG_BLOCK["text"]["text"].replace("<user_id>", user_id)
+
         if text.lower() == self.adivinhacao["resposta"]:
             return {
             "ts": self.timestamp,
             "channel": self.channel,
             "username": self.username,
             "blocks": [
-                self.CORRECT_BLOCK
+                CORRECT_BLOCK
             ],
         }
         else:
@@ -86,7 +89,7 @@ class JogoAdivinhacao:
             "channel": self.channel,
             "username": self.username,
             "blocks": [
-                self.WRONG_BLOCK
+                WRONG_BLOCK
             ],
         }
 
