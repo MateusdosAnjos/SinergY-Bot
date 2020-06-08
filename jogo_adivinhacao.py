@@ -1,6 +1,7 @@
 import base_jogo_adivinhacao as jgAdivinhacao 
 
 class JogoAdivinhacao:
+    
     adivinhacao = {
         "pergunta" : "",
         "resposta" : "",
@@ -71,8 +72,8 @@ class JogoAdivinhacao:
 			}
     }
 
-    def get_message_ingame(text):
-        if text == adivinhacao["resposta"]:
+    def get_message_ingame(self, text):
+        if text == self.adivinhacao["resposta"]:
             return {
             "ts": self.timestamp,
             "channel": self.channel,
@@ -82,7 +83,7 @@ class JogoAdivinhacao:
                 self.CORRECT_BLOCK
             ],
         }
-        else
+        else:
             return {
             "ts": self.timestamp,
             "channel": self.channel,
@@ -93,9 +94,9 @@ class JogoAdivinhacao:
             ],
         }
 
-    def get_is_correct(text):
-        if text == adivinhacao["resposta"]:
+    def get_is_correct(self, text):
+        if text == self.adivinhacao["resposta"]:
             return True
-        else
+        else:
             return False
         

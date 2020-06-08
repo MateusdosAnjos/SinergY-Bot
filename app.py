@@ -22,6 +22,8 @@ help_info_sent = {}
 join_channel_sent = {}
 jogo_adivinhacao_sent = {}
 
+ingame = False
+jogo_adivinhacao =  ""
 
 def start_onboarding(user_id: str, channel: str):
     # Create a new onboarding tutorial.
@@ -83,8 +85,8 @@ def join_channel(user_id: str, channel: str):
         join_channel_sent[channel] = {}
     join_channel_sent[channel][user_id] = join_channel
 
-jogo_adivinhacao = ""
 def riddle_game(user_id: str, channel: str):
+    global jogo_adivinhacao
     # Create a new join channel.
     jogo_adivinhacao = JogoAdivinhacao(channel)
 
@@ -106,11 +108,13 @@ def riddle_game(user_id: str, channel: str):
 
 def ingame_riddle(user_id: str, channel: str, text: str):
     # Get the onboarding message payload
-    message = jogo_adivinhacao.get_message_ingame()
+    message = jogo_adivinhacao.get_message_ingame(text)
 
-    if jogo_adivinhacao.get_is_correct()
+    global ingame
+
+    if jogo_adivinhacao.get_is_correct(text):
         ingame = False
-    else 
+    else:
         ingame = True
 
     # Post the onboarding message in Slack
@@ -208,7 +212,6 @@ def update_pin(payload):
     # Update the timestamp saved on the onboarding tutorial object
     onboarding_tutorial.timestamp = updated_message["ts"]
 
-ingame = False
 # ============== Message Events ============= #
 # When a user sends a DM, the event type will be 'message'.
 # Here we'll link the message callback to the 'message' event.
@@ -223,10 +226,12 @@ def message(payload):
     user_id = event.get("user")
     text = event.get("text")
 
-    if ingame:
-        ingame_riddle(text)
-        return 
+    global ingame
 
+    if ingame and text != "This content can't be displayed.":
+        ingame_riddle(user_id, channel_id, text)
+        return
+    
     if text == None:
         return 
     
