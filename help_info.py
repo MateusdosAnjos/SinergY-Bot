@@ -56,7 +56,6 @@ class HelpInfo:
                 self.TITLE_MESSAGE,
                 self.OPTION_1,
                 self.OPTION_2,
-                self.OPTION_3,
                 self.OPTION_4,
             ],
         }

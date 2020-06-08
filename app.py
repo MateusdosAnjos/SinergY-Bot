@@ -23,6 +23,7 @@ join_channel_sent = {}
 jogo_adivinhacao_sent = {}
 
 ingame = False
+dica_time = False
 jogo_adivinhacao =  ""
 
 def start_onboarding(user_id: str, channel: str):
@@ -111,8 +112,12 @@ def ingame_riddle(user_id: str, channel: str, text: str):
     message = jogo_adivinhacao.get_message_ingame(text)
 
     global ingame
+    global dica_time
 
-    if jogo_adivinhacao.get_is_correct(text):
+    if text.lower() == "dica":
+        dica_time = True
+        message = jogo_adivinhacao.get_dica()
+    elif jogo_adivinhacao.get_is_correct(text):
         ingame = False
     else:
         ingame = True
@@ -227,10 +232,13 @@ def message(payload):
     text = event.get("text")
 
     global ingame
+    global dica_time
 
-    if ingame and text != "This content can't be displayed.":
+    if ingame and not dica_time and text != "This content can't be displayed.":
         ingame_riddle(user_id, channel_id, text)
         return
+
+    dica_time = False
     
     if text == None:
         return 

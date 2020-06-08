@@ -13,7 +13,7 @@ class JogoAdivinhacao:
             "type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "Hora da adivinhação :grinning: :"
+				"text": "Hora da charada!! :grinning: :"
 			}
     }
     DIVIDER_BLOCK = {"type": "divider"}
@@ -35,7 +35,6 @@ class JogoAdivinhacao:
 
         self.channel = channel
         self.username = "Synergy-Bot"
-        self.icon_emoji = ":robot_face:"
         self.timestamp = ""
         self.reaction_task_completed = False
         self.pin_task_completed = False
@@ -46,7 +45,6 @@ class JogoAdivinhacao:
             "ts": self.timestamp,
             "channel": self.channel,
             "username": self.username,
-            "icon_emoji": self.icon_emoji,
             "blocks": [
                 self.TITLE_BLOCK,
                 self.DIVIDER_BLOCK,
@@ -59,7 +57,7 @@ class JogoAdivinhacao:
             "type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "ACERTOU, PARABENS :grinning: :"
+				"text": "ACERTOU, PARABENS :grinning:"
 			}
     }
     
@@ -68,7 +66,7 @@ class JogoAdivinhacao:
             "type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "ERROOOO"
+				"text": "Errado! :no_mouth:"
 			}
     }
 
@@ -78,7 +76,6 @@ class JogoAdivinhacao:
             "ts": self.timestamp,
             "channel": self.channel,
             "username": self.username,
-            "icon_emoji": self.icon_emoji,
             "blocks": [
                 self.CORRECT_BLOCK
             ],
@@ -88,7 +85,6 @@ class JogoAdivinhacao:
             "ts": self.timestamp,
             "channel": self.channel,
             "username": self.username,
-            "icon_emoji": self.icon_emoji,
             "blocks": [
                 self.WRONG_BLOCK
             ],
@@ -99,4 +95,20 @@ class JogoAdivinhacao:
             return True
         else:
             return False
+    
+    def get_dica(self):
+        return {
+            "ts": self.timestamp,
+            "channel": self.channel,
+            "username": self.username,
+            "blocks": [
+                {		
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": self.adivinhacao["dica"]
+                        }
+                }
+            ],
+        }
         
