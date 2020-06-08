@@ -42,6 +42,16 @@ class HelpInfo:
 			}
 		}
 
+    OPTION_5 = {
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": "Digite 'conversa' para obter um tema de conversa",
+				"emoji": True
+			}
+		}
+
+
     def __init__(self, channel):
         self.channel = channel
         self.username = "Synergy-Bot"
@@ -56,6 +66,8 @@ class HelpInfo:
                 self.TITLE_MESSAGE,
                 self.OPTION_1,
                 self.OPTION_2,
+                self.OPTION_3,
                 self.OPTION_4,
+				self.OPTION_5,
             ],
         }

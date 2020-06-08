@@ -13,8 +13,8 @@ perguntas = [
 ]
 
 respostas = [
-  "Batman",
-  "Antártida",
+  "batman",
+  "antártida",
   "sapato",
   "cebola",
   "porta",

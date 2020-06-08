@@ -7,6 +7,7 @@ from onboarding_tutorial import OnboardingTutorial
 from help_info import HelpInfo
 from join_channel import JoinChannel
 from jogo_adivinhacao import JogoAdivinhacao
+from conversa import Conversa
 
 # Initialize a Flask app to host the events adapter
 app = Flask(__name__)
@@ -21,6 +22,7 @@ onboarding_tutorials_sent = {}
 help_info_sent = {}
 join_channel_sent = {}
 jogo_adivinhacao_sent = {}
+conversa_sent = {}
 
 ingame = False
 dica_time = False
@@ -65,6 +67,26 @@ def show_help_info(user_id: str, channel: str):
     if channel not in help_info_sent:
         help_info_sent[channel] = {}
     help_info_sent[channel][user_id] = help_info
+
+def show_conversa(user_id: str, channel: str):
+    # Create a new info helper.
+    conversa = Conversa(channel)
+
+    # Get the onboarding message payload
+    message = conversa.get_message_payload()
+
+    # Post the onboarding message in Slack
+    response = slack_web_client.chat_postMessage(**message)
+
+    # Capture the timestamp of the message we've just posted so
+    # we can use it to update the message after a user
+    # has completed an onboarding task.
+    conversa.timestamp = response["ts"]
+
+    # Store the message sent in conversa_sent
+    if channel not in conversa_sent:
+        conversa_sent[channel] = {}
+    conversa_sent[channel][user_id] = conversa
 
 def join_channel(user_id: str, channel: str):
     # Create a new join channel.
@@ -255,11 +277,14 @@ def message(payload):
     elif text.lower() == "jogo_charada":
         ingame = True
         return riddle_game(user_id, channel_id)
+    
+    elif text.lower() == "conversa":
+        return show_conversa(user_id, channel_id)
 
 @slack_events_adapter.on("reaction_added")
 def reaction_added(event_data):
-  emoji = event_data["event"]["reaction"]
-  print(emoji)
+    emoji = event_data["event"]["reaction"]
+    print(emoji)
 
 if __name__ == "__main__":
     logger = logging.getLogger()

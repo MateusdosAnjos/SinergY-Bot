@@ -13,7 +13,7 @@ class JogoAdivinhacao:
             "type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "Hora da charada!! :grinning: :"
+				"text": "Hora da charada!! :grinning:"
 			}
     }
     DIVIDER_BLOCK = {"type": "divider"}
@@ -71,7 +71,7 @@ class JogoAdivinhacao:
     }
 
     def get_message_ingame(self, text):
-        if text == self.adivinhacao["resposta"]:
+        if text.lower() == self.adivinhacao["resposta"]:
             return {
             "ts": self.timestamp,
             "channel": self.channel,
@@ -91,7 +91,7 @@ class JogoAdivinhacao:
         }
 
     def get_is_correct(self, text):
-        if text == self.adivinhacao["resposta"]:
+        if text.lower() == self.adivinhacao["resposta"]:
             return True
         else:
             return False
