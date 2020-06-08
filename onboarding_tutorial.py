@@ -19,21 +19,6 @@ class OnboardingTutorial:
 			}
     }
 
-    BUTTON = {
-			"type": "actions",
-			"elements": [
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": "Click Me",
-						"emoji": True
-					},
-					"value": "click_me_123"
-				}
-			]
-		}
-
     def __init__(self, channel):
         self.channel = channel
         self.username = "Synergy-Bot"
@@ -49,7 +34,6 @@ class OnboardingTutorial:
             "blocks": [
                 self.WELCOME_BLOCK,
                 self.DIVIDER_BLOCK,
-                self.HELP_BLOCK,
-                self.BUTTON
+                self.HELP_BLOCK
             ],
         }

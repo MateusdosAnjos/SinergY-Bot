@@ -26,8 +26,10 @@ conversa_sent = {}
 
 ingame = False
 dica_time = False
+should_join = False
 jogo_adivinhacao =  ""
 
+#START MESSAGE
 def start_onboarding(user_id: str, channel: str):
     # Create a new onboarding tutorial.
     onboarding_tutorial = OnboardingTutorial(channel)
@@ -48,6 +50,7 @@ def start_onboarding(user_id: str, channel: str):
         onboarding_tutorials_sent[channel] = {}
     onboarding_tutorials_sent[channel][user_id] = onboarding_tutorial
 
+## HELPER METHOD!
 def show_help_info(user_id: str, channel: str):
     # Create a new info helper.
     help_info = HelpInfo(channel)
@@ -68,6 +71,7 @@ def show_help_info(user_id: str, channel: str):
         help_info_sent[channel] = {}
     help_info_sent[channel][user_id] = help_info
 
+## PUXA CARTA OPERATIONS!
 def show_conversa(user_id: str, channel: str):
     # Create a new info helper.
     conversa = Conversa(channel)
@@ -88,6 +92,8 @@ def show_conversa(user_id: str, channel: str):
         conversa_sent[channel] = {}
     conversa_sent[channel][user_id] = conversa
 
+
+## JOIN CHANNEL OPERATIONS!
 def join_channel(user_id: str, channel: str):
     # Create a new join channel.
     join_channel = JoinChannel(channel)
@@ -108,6 +114,20 @@ def join_channel(user_id: str, channel: str):
         join_channel_sent[channel] = {}
     join_channel_sent[channel][user_id] = join_channel
 
+
+def channel_to_join(user_id: str, channel: str, channel_name: str):
+    test = slack_web_client.conversations_list()
+    for dic in test['channels']:
+        if dic['name'] == channel_name:
+            channel_id = dic['id']
+            break
+
+    if channel_name:
+        response = slack_web_client.conversations_join(channel=channel_id)
+    
+    return start_onboarding(user_id, channel_id)
+
+## RIDDLE GAME OPERATIONS!    
 def riddle_game(user_id: str, channel: str):
     global jogo_adivinhacao
     # Create a new join channel.
@@ -258,21 +278,37 @@ def message(payload):
     text = event.get("text")
 
     global ingame
+    global should_join
     global dica_time
 
-    if text.lower() == "end_game":
-        ingame = False
+    #IGNORES THE BOT MESSAGE
+    if text == "This content can't be displayed.":
         return
-        
-    if ingame and not dica_time and text != "This content can't be displayed.":
+
+    #USERS ARE INGAME   
+    if ingame and not dica_time:
         ingame_riddle(user_id, channel_id, text)
         return
 
+    # STOPS THE GAMEPLAY
+    if text.lower() == "end_game":
+        ingame = False
+        return
+
+    #ENDS DICA TIME
     dica_time = False
-    
+
+
+    # THE BOT IS EXPECTING A CHANNEL NAME TO JOIN!
+    if should_join:
+        should_join = False
+        return channel_to_join(user_id, channel_id, text)
+
+    # VERIFICATION OF TEXT (AVOID CRASHES)
     if text == None:
         return 
     
+    # THE COMMANDS THE BOT ACCEPTS
     if text.lower() == "start":
         return start_onboarding(user_id, channel_id)
     
@@ -280,6 +316,7 @@ def message(payload):
         return show_help_info(user_id, channel_id)
 
     elif text.lower() == "join":
+        should_join = True
         return join_channel(user_id, channel_id)
         
     elif text.lower() == "jogo_charada":

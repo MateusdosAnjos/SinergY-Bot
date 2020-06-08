@@ -1,4 +1,5 @@
 import base_jogo_adivinhacao as jgAdivinhacao 
+import random
 
 class JogoAdivinhacao:
     
@@ -18,6 +19,14 @@ class JogoAdivinhacao:
     }
     DIVIDER_BLOCK = {"type": "divider"}
 
+    DICA_BLOCK = {
+		
+            "type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "Se estiver muito dificil você pode pedir uma dica escrevendo 'dica'"
+			}
+    }
 
     QUESTION_BLOCK = {
         "type": "section",
@@ -48,17 +57,27 @@ class JogoAdivinhacao:
             "blocks": [
                 self.TITLE_BLOCK,
                 self.DIVIDER_BLOCK,
+                self.DICA_BLOCK,
+                self.DIVIDER_BLOCK,
                 self.QUESTION_BLOCK
             ],
         }
     
     
     def get_message_ingame(self, text, user_id):
+
+        msg_erros = [
+            "Errado <@<user_id>>! :no_mouth:",
+            "Acho que não <@<user_id>> :thinking_face:",
+            "Continue tentando <@<user_id>> :yum:",
+            "Não é isso <@<user_id>> :neutral_face:",
+            ]
+        num = random.randint(0, len(msg_erros)-1)
         CORRECT_BLOCK = {	
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "<@<user_id>> ACERTOU, PARABÉNS :grinning:"
+                    "text": "<@<user_id>> ACERTOU, PARABÉNS :grinning::tada::tada::tada:"
                 }
         }
         
@@ -72,6 +91,9 @@ class JogoAdivinhacao:
         }
 
         CORRECT_BLOCK["text"]["text"] = CORRECT_BLOCK["text"]["text"].replace("<user_id>", user_id)
+
+
+        WRONG_BLOCK["text"]["text"] = msg_erros[num]
         WRONG_BLOCK["text"]["text"] = WRONG_BLOCK["text"]["text"].replace("<user_id>", user_id)
 
         if text.lower() == self.adivinhacao["resposta"]:
