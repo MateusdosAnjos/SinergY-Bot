@@ -14,6 +14,15 @@ class Conversa:
     "Qual é o sonho mais aterrador que já teve?",
     "Conte-me uma coisa de que se orgulhe sobre si",
     "Se pudesse ser um animal, qual seria?",
+    "Qual lugar do mundo você gostaria de conhecer?",
+    "Qual sonho de criança você realizou?",
+    "Qual seu jogo preferido?",
+    "Qual seu personagem preferido dos games?",
+    "Se eu pudesse ser eu seria.....",
+    "Se o ano de 2020 fosse um personagem, qual seria?",
+    "Conte seu momento mais feliz deste mês",
+    "Qual lugar mais diferenciado que você já esteve?",
+    "Filme, serie ou livros?",
     ]
 
     TITLE_MESSAGE = {

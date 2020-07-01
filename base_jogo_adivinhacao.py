@@ -14,6 +14,10 @@ perguntas = [
   "O que é que começa na mata, vai a ponta da nuvem e termina no jardim?",
   "O que é varinha de condão e ao tocar numa caixinha faz luz na escuridão?",
   "O que nasce uma vez, nasce duas vezes, mas na terceira não nasce mais?",
+  "O que é, o que é? Feito para andar e não anda.",
+  "O que é, o que é? Dá muitas voltas e não sai do lugar.",
+  "Tem cabeça e tem dente, não é bicho e nem é gente.",
+  "O que é, o que é? Não se come, mas é bom para se comer.",
 ]
 
 respostas = [
@@ -30,6 +34,10 @@ respostas = [
   "letra m",
   "palito de fósforo",
   "dente",
+  "rua",
+  "relogio",
+  "alho",
+  "talher",
 ]
 
 dicas = [
@@ -46,6 +54,10 @@ dicas = [
   "existe uma vantagem em ler a charada. Seria mas difícil ouvi-la",
   "o fogo pode iluminar a escuridão...",
   "Da primeira vez é sempre de leite",
+  "Passamos por ela quase todos os dias",
+  "O tempo está passando...",
+  "Pode ser um tempero....",
+  "Geralmente usamos o conjunto todo e não só um objeto",
 ]
 
 def comeca_jogo():
