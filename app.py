@@ -285,14 +285,14 @@ def message(payload):
     if text == "This content can't be displayed.":
         return
 
-    #USERS ARE INGAME   
-    if ingame and not dica_time:
-        ingame_riddle(user_id, channel_id, text)
-        return
-
     # STOPS THE GAMEPLAY
     if text.lower() == "end_game":
         ingame = False
+        return
+
+    #USERS ARE INGAME   
+    if ingame and not dica_time:
+        ingame_riddle(user_id, channel_id, text)
         return
 
     #ENDS DICA TIME
