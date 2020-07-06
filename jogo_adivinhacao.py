@@ -5,7 +5,7 @@ class JogoAdivinhacao:
     
     adivinhacao = {
         "pergunta" : "",
-        "resposta" : "",
+        "resposta" : [],
         "dica" : ""
     }
 
@@ -96,7 +96,7 @@ class JogoAdivinhacao:
         WRONG_BLOCK["text"]["text"] = msg_erros[num]
         WRONG_BLOCK["text"]["text"] = WRONG_BLOCK["text"]["text"].replace("<user_id>", user_id)
 
-        if text.lower() == self.adivinhacao["resposta"]:
+        if text.lower() in self.adivinhacao["resposta"]:
             return {
             "ts": self.timestamp,
             "channel": self.channel,
