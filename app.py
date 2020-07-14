@@ -181,6 +181,8 @@ def ingame_riddle(user_id: str, channel: str, text: str):
         jogo_adivinhacao_sent[channel] = {}
     jogo_adivinhacao_sent[channel][user_id] = jogo_adivinhacao
 
+    return ingame
+
 # ================ Team Join Event =============== #
 # When the user first joins a team, the type of the event will be 'team_join'.
 # Here we'll link the onboarding_message callback to the 'team_join' event.
@@ -292,7 +294,8 @@ def message(payload):
 
     #USERS ARE INGAME   
     if ingame and not dica_time:
-        ingame_riddle(user_id, channel_id, text)
+        if ingame_riddle(user_id, channel_id, text):
+            ingame = False
         return
 
     #ENDS DICA TIME

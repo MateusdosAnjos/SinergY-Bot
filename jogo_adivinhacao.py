@@ -49,6 +49,7 @@ class JogoAdivinhacao:
         self.pin_task_completed = False
 
     def get_message_payload(self):
+        self.adivinhacao = jgAdivinhacao.comeca_jogo()
         self.QUESTION_BLOCK["text"]["text"] = self.QUESTION_BLOCK["text"]["text"].replace("<text>", self.adivinhacao["pergunta"])
         return {
             "ts": self.timestamp,

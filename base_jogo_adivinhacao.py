@@ -61,7 +61,8 @@ dicas = [
 ]
 
 def comeca_jogo():
-    num = random.randint(0, len(perguntas)-1)
+    random.seed()
+    num = random.randint(0, (len(perguntas) * 8000)) % len(perguntas)
     pergunta = select_adivinhacao(num)
     resposta = get_resposta(num)
     dica = get_dica(num)
